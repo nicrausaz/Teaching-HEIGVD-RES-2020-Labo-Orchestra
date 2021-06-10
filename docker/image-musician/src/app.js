@@ -44,7 +44,7 @@ function play (musician_uuid, instrument, sound) {
    }
    const message = JSON.stringify(data)
 
-   client.send(message, 0, message.length, 60491, '255.255.255.255', (err, bytes) => {
+   client.send(message, 0, message.length, 11111, 'localhost', (err, bytes) => {
       console.log("Sending payload: " + message)
    })
 }

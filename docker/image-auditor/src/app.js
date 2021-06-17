@@ -2,6 +2,13 @@ const dgram = require('dgram')
 const net = require('net')
 const client = dgram.createSocket('udp4')
 
+const PROTOCOL = {
+  PORT: 11111,
+  MULTICAST_ADDRESS: "239.255.22.5",
+  TCP_INTERFACE_PORT: 2205,
+  TCP_INTERFACE_ADDR: "0.0.0.0"
+}
+
 // Map for musicians play status
 let musicians = new Map()
 
@@ -34,10 +41,17 @@ client.on('listening', () => {
   console.log(`client listening ${client.address().address}:${client.address().port}`)
 })
 
-client.bind(11111)
+client.bind(PROTOCOL.PORT, () => client.addMembership(PROTOCOL.MULTICAST_ADDRESS))
+
+// Check if musicians are still active
+setInterval(() => {
+  for (let [key, values] of musicians.entries()) {
+    if ((new Date().getTime() - new Date(values.activeSince).getTime()) / 1000 > 5)
+      musicians.delete(key)
+  }
+}, 1000)
 
 // Partie TCP pour obtenir la map en JSON
-
 const server = net.createServer(socket => {
   // Construction du tableau de retour
   const data = []
@@ -48,4 +62,4 @@ const server = net.createServer(socket => {
   socket.pipe(socket)
 })
 
-server.listen(2205, 'localhost')
+server.listen(PORT.TCP_INTERFACE_PORT, PROTOCOL.TCP_INTERFACE_ADDR)

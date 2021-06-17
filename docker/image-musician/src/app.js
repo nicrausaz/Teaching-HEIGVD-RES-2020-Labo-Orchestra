@@ -2,6 +2,11 @@ const dgram = require('dgram')
 const client = dgram.createSocket('udp4')
 const { v4: uuidv4 } = require('uuid')
 
+const PROTOCOL = {
+   PORT: 11111,
+   MULTICAST_ADDRESS: "239.255.22.5"
+}
+
 // Registered instruments & their sounds
 const soundFromInstrument = {
    piano: 'ti-ta-ti',
@@ -30,13 +35,7 @@ const musician_uuid = uuidv4()
 setInterval(() => play(musician_uuid, instrument, sound), 1000)
 
 
-/**
- * Send UPD broadcast
- * 
- * @param {*} musician_uuid 
- * @param {*} instrument 
- * @param {*} sound 
- */
+// Send UDP multicast
 function play (musician_uuid, instrument, sound) {
    const data = {
       uuid: musician_uuid,
@@ -44,8 +43,8 @@ function play (musician_uuid, instrument, sound) {
    }
    const message = JSON.stringify(data)
 
-   client.send(message, 0, message.length, 11111, 'localhost', (err, bytes) => {
-      console.log("Sending payload: " + message)
+   client.send(message, 0, message.length, PROTOCOL.PORT, PROTOCOL.MULTICAST_ADDRESS, (err, bytes) => {
+      err ? console.error(err) : console.log("Sending payload: " + message)
    })
 }
 

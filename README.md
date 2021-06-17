@@ -108,8 +108,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | Ce sont les musiciens qui vont envoyer des datagrammes UDP chaque seconde lorsqu'ils jouent |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | Le chef d'orchestre (Auditor) est chargé d'écouter le trafic UDP pour recevoir des datagrammes
-ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
+| | Le chef d'orchestre (Auditor) est chargé d'écouter le trafic UDP pour recevoir des datagrammes ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
 |Question | What **payload** should we put in the UDP datagrams? |
 | | *Enter your response here...* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
@@ -125,9 +124,8 @@ ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à dispositi
 |Question | What is **npm**?  |
 | | Npm est un gestionnaire de packets pour l'environnement node.js. Il sert à gérer les dépendances d'un projet (comme par exemple Maven en Java ou Composer en PHP)  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag? |
-| | Npm install permet d'installer une dépendance qui se trouve dans les registres npm. L'intêret du flag `--save`
-est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance. Lors que l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance ~temporairement.  |
-|Question | How can we use the `https://www.npmjs.com/` web site?  |
+| | Npm install permet d'installer une dépendance qui se trouve dans les registres npm. L'intêret du flag `--save` est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance. Lors que l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance ~temporairement. |
+|Question | How can we use the `https://www.npmjs.com/` web site? |
 | | Le site npmjs.com permet de consulter les registres des paquets que l'on peut utiliser comme dépendance d'un projet
 node.js  |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
@@ -179,9 +177,9 @@ client.send(message, 0, message.length, PORT, BROADCAST_ADDR, callback())
 |Question | After building our Docker image, how do we use it to **run containers**?  |
 | | *Enter your response here...*  |
 |Question | How do we get the list of all **running containers**?  |
-| | À l'aide de la commande: docker ps  |
+| | À l'aide de la commande: `docker ps`  |
 |Question | How do we **stop/kill** one running container?  |
-| | À l'aide de la commande: docker kill nomContainer  |
+| | À l'aide de la commande: `docker kill nomContainer`  |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
 | | *Enter your response here...*  |
 

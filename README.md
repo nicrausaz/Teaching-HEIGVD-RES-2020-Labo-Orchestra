@@ -106,13 +106,13 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
 | | ![](./images/diagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | Ce sont les musiciens qui vont envoyer des datagrammes UDP chaque seconde lorsqu'ils jouent |
+| | Ce sont les musiciens qui vont envoyer des datagrammes UDP chaque seconde lorsqu'ils jouent. |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | Le chef d'orchestre (Auditor) est chargé d'écouter le trafic UDP pour recevoir des datagrammes ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
+| | Le chef d'orchestre (Auditor) est chargé d'écouter le trafic UDP pour recevoir des datagrammes, ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
 |Question | What **payload** should we put in the UDP datagrams? |
-| |  Un musicien envoie son uuid et le son qu'il joue, par exemple: `{"uuid":"1d175725-f7da-4ceb-993b-944c30dc608a","sound":"boum-boum"}`|
+| |  Un musicien envoie son uuid et le son qu'il joue, par exemple: `{"uuid":"1d175725-f7da-4ceb-993b-944c30dc608a","sound":"boum-boum"}`.|
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | Nous avons utilisé des structures Map. Dans l'auditor il nous en faut une pour stocker les musiciens actifs et une pour faire office de dictionnaire entre un son et son instrument. Dans un musicien il nous en faut une pour faire office de dictionnaire entre un intrument et son son.|
+| | Nous avons utilisé des structures Map. Dans l'auditor il nous en faut une pour stocker les musiciens actifs et une pour faire office de dictionnaire entre un son et son instrument. Dans un musicien il nous en faut une pour faire office de dictionnaire entre un intrument et son son. Seule la map des musiciens actifs sera modifié. Les 2 autres sont utilisés pour valider les instruments et les sons, ils ne sont pas modifiés.|
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -122,19 +122,19 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
 | | En javascript, il n'y a pas besoin de sérialiser les objets en JSON car le JSON (JavaScript Object Notation) est déjà une représentation d'objet.  |
 |Question | What is **npm**?  |
-| | Npm est un gestionnaire de packets pour l'environnement node.js. Il sert à gérer les dépendances d'un projet (comme par exemple Maven en Java ou Composer en PHP)  |
+| | Npm est un gestionnaire de packets pour l'environnement node.js. Il sert à gérer les dépendances d'un projet (comme par exemple Maven en Java ou Composer en PHP).  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag? |
-| | `npm install` permet d'installer une dépendance qui se trouve dans les registres npm. L'intêret du flag `--save` est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance pour le projet. Lorsque l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance "temporairement". |
+| | `npm install` permet d'installer une dépendance qui se trouve dans les registres npm. L'intérêt du flag `--save` est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance pour le projet. Lorsque l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance "temporairement". |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | Le site npmjs.com permet de consulter les registres des paquets que l'on peut utiliser comme dépendance d'un projet node.js. Si on souhaite utiliser un paquet se trouvant sur npmjs.com, on peut l'installer avec npm. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | Il suffit d'importer par exemple le module `uuid` que l'on trouve sur npm: ```$ npm install uuid --save ``` </br> Puis de l'importer dans notre application: ```const { v4: uuidv4 } = require('uuid'); uuidv4() ``` |
+| | Il suffit d'importer par exemple le module `uuid` que l'on trouve sur npm: ```$ npm install uuid --save ``` </br> Puis de l'importer dans notre application: ```const { v4: uuidv4 } = require('uuid'); uuidv4() ```. |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
 | | Il suffit d'utiliser la fonction `setInterval` de l'API Timers de Node.js: </br> ```setInterval(() => { console.log('Called every second') }, 1000)``` |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | Il est possible d'utiliser les fonction de l'API node.js pour envoyer des datagrammes: voir exemple 1 |
+| | Il est possible d'utiliser les fonction de l'API node.js pour envoyer des datagrammes: voir exemple 1. |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | Les arguments de commande peut être accédée depuis l'instance de `process` grâce au tableau `process.argv`|
+| | Les arguments de commande peut être accédée depuis l'instance de `process` grâce au tableau `process.argv`. |
 
 *Exemple 1 - UDP datagrams*
 ```
@@ -151,11 +151,11 @@ client.send(message, 0, message.length, PORT, BROADCAST_ADDR, callback())
 |Question | How do we **define and build our own Docker image**?|
 | | Nous nous basons sur une image node (v.14.16), dans laquelle nous copions notre application node.js, installons les dépendances et définissions un ENTRYPOINT (voir point suivant).|
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | La clause `ENTRYPOINT` permet de spécifier un exécutable par défault pour notre container. A la différence de CMD, ces paramètres ne peuvent pas être redéfini au travers du docker-cli.  |
+| | La clause `ENTRYPOINT` permet de spécifier un exécutable par défault pour notre container. À la différence de CMD, ces paramètres ne peuvent pas être redéfini au travers du docker-cli.  |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | Il suffit de démarrer un container basé sur notre image (ici res/musician) avec la commande: <br> `docker run -d res/musician drum`  |
+| | Il suffit de démarrer un container basé sur notre image (ici res/musician avec l'instrument drum) avec la commande: <br> `docker run -d res/musician drum`.  |
 |Question | How do we get the list of all **running containers**?  |
-| | Il suffit d'utiliser la commande `docker ps`  |
+| | Il suffit d'utiliser la commande `docker ps`.  |
 |Question | How do we **stop/kill** one running container?  |
 | | Il suffit d'utiliser la commande `docker kill <nom_du_container>`. <br> On peut également faire `docker kill $(docker ps -qa)` pour stopper tous les containers.|
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
@@ -167,13 +167,13 @@ client.send(message, 0, message.length, PORT, BROADCAST_ADDR, callback())
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | Il faut que nous choissions d'abord une adresse IP de Multicast, il en existe plusieurs range disponible (voir [source](https://en.wikipedia.org/wiki/Multicast_address)). <br> Nous avons choisi l'adresse 239.255.10.10. Il faut ensuite "bind" cette adresse à notre serveur UDP: `client.bind(PROTOCOL.PORT, () => client.addMembership(PROTOCOL.MULTICAST_ADDRESS))`    |
+| | Il faut que nous choisissions d'abord une adresse IP de Multicast, il existe plusieurs range d'adresses disponibles (voir [source](https://en.wikipedia.org/wiki/Multicast_address)). <br> Nous avons choisi l'adresse 239.255.10.10. Il faut ensuite "bind" cette adresse à notre serveur UDP: `client.bind(PROTOCOL.PORT, () => client.addMembership(239.255.10.10))`. |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | Un Map est une structure de donnée de type dictionnaire (clé - valeur). En JavaScript on l'utilise de cette manière (voir exemple 2)|
+| | Un Map est une structure de donnée de type dictionnaire (clé - valeur). En JavaScript on l'utilise de cette manière (voir exemple 2). |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
 | | Nous n'avons pas utilisé Moment.js dans notre projet car nous ne travaillons qu'un seule fois avec des dates, nous avons donc préféré utiliser les object Date natifs JavaScript. Si l'on souhaitait le faire tout de même, moment.js offre des function pour comparer des dates (ex. diff) et des fonctions de formattage. |
 |Question | When and how do we **get rid of inactive players**?  |
-| | Nous avons implémenté une fonction s'exécutant chaque seconde qui vérifie les musiciens de la map pour vérifier qu'il soient toujours actifs (ont jouer dans les 5 dernières secondes), si ce n'est pas le cas on utilise map.delete(clé) pour retirer le musicien. On utilise l'itération sur un map `for (let [key, values] of musicians.entries())`.|
+| | Nous avons implémenté une fonction s'exécutant chaque seconde qui vérifie si les musiciens de la map sont toujours actifs (ont jouer dans les 5 dernières secondes), si ce n'est pas le cas on utilise map.delete(clé) pour retirer le musicien. On utilise l'itération sur un map `for (let [key, values] of musicians.entries())`. |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
 | | Nous pouvons utiliser l'API native node js `net`, voir exemple 3. |
 
@@ -220,7 +220,7 @@ server.listen(PORT, ADDRESS)
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | Nous pouvons valider notre système grâce au script fourni `validate.sh`. Ce script va créer des musiciens et un auditeur et vérifier le fonctionnement de notre serveur TCP et également la mise à jour de la liste de musicien actifs. |
+| | Nous pouvons valider notre système grâce au script fourni `validate.sh`. Ce script va créer des musiciens et un auditeur et vérifier le fonctionnement de notre serveur TCP et également la mise à jour de la liste des musiciens actifs. |
 
 
 ## Constraints

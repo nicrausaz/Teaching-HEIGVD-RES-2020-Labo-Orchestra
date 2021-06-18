@@ -141,7 +141,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | | Les arguments de commande peut être accédée depuis l'instance de `process` grâce au tableau `process.argv`
 |
 
-Exemple 1 - UDP datagrams
+*Exemple 1 - UDP datagrams*
 ```
 const dgram = require('dgram')
 const client = dgram.createSocket('udp4')
@@ -176,20 +176,47 @@ client.send(message, 0, message.length, PORT, BROADCAST_ADDR, callback())
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
 | | Un Map est une structure de donnée de type dictionnaire (clé - valeur). En JavaScript on l'utilise de cette manière (voir exemple 2)|
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | Nous n'avons pas utilisé Moment.js dans notre projet car nous ne travaillons qu'un seule fois avec des dates, nous avons donc préféré utiliser les object Date natifs JavaScript. Si l'on souhaitait le faire tout de même, moment.js offre des function pour comparer des dates (ex. diff) et des fonctions de formattage. |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | Nous avons implémenté une fonction s'exécutant chaque seconde qui vérifie les musiciens de la map pour vérifier qu'il soient toujours actifs (ont jouer dans les 5 dernières secondes), si ce n'est pas le cas on utilise map.delete(clé) pour retirer le musicien. On utilise l'itération sur un map `for (let [key, values] of musicians.entries())`.|
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | Nous pouvons utiliser l'API native node js `net`, voir exemple 3. |
 
-Exemple 2 - Map en JavaScript
+*Exemple 2 - Map en JavaScript*
 On peut construire un map de différente manière, soit en ajoutant les valeurs une a une ou avec le contructeur.
+On peut y stocker différents types de clé et de valeurs.
+
 ```JavaScript
 const myMap = new Map()
 
+// Insert values
 myMap.set("test", "this is a string")
-myMap.set({'test': 1}, "this key is an object")
+myMap.set({'prop': 1}, "this key is an object")
 
+// Get values
+myMap.get("test") // this is a string
+
+// Constrution par tableau
+const myMap2 = new Map([
+    ['ti-ta-ti', 'piano'],
+    ['pouet', 'trumpet'],
+    ['trulu', 'flute']
+])
+```
+
+*Exemple 3 - Serveur TCP*
+
+```JavaScript
+const net = require('net')
+
+const server = net.createServer(socket => {
+  // ...
+  socket.write("Hello")
+  console.log(`sending: ${data}`)
+   // ...
+})
+
+server.listen(PORT, ADDRESS)
 ```
 
 
@@ -198,7 +225,7 @@ myMap.set({'test': 1}, "this key is an object")
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | Nous pouvons valider notre système grâce au script fourni `validate.sh`. Ce script va créer des musiciens et un auditeur et vérifier le fonctionnement de notre serveur TCP et également la mise à jour de la liste de musicien actifs. |
 
 
 ## Constraints

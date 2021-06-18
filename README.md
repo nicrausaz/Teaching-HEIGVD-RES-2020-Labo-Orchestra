@@ -124,22 +124,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | What is **npm**?  |
 | | Npm est un gestionnaire de packets pour l'environnement node.js. Il sert à gérer les dépendances d'un projet (comme par exemple Maven en Java ou Composer en PHP)  |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag? |
-| |Npm install permet d'installer une dépendance qui se trouve dans les registres npm. L'intêret du flag `--save` est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance pour le projet. Lorsque l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance "temporairement".  |
+| | `npm install` permet d'installer une dépendance qui se trouve dans les registres npm. L'intêret du flag `--save` est d'inclure la dépendance dans le fichier package.json, ce qui permet de fixer la dépendance pour le projet. Lorsque l'on fait un npm install, npm installera toutes les dépendances qui se trouvent dans ce fichier. Sans `--save`, on installe localement la dépendance "temporairement". |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | Le site npmjs.com permet de consulter les registres des paquets que l'on peut utiliser comme dépendance d'un projet node.js. Si on souhaite utiliser un paquet se trouvant sur npmjs.com, on peut l'installer avec npm.
-  |
+| | Le site npmjs.com permet de consulter les registres des paquets que l'on peut utiliser comme dépendance d'un projet node.js. Si on souhaite utiliser un paquet se trouvant sur npmjs.com, on peut l'installer avec npm. |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
 | | Il suffit d'importer par exemple le module `uuid` que l'on trouve sur npm: ```$ npm install uuid --save ``` </br> Puis de l'importer dans notre application: ```const { v4: uuidv4 } = require('uuid'); uuidv4() ``` |
-|
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | Il suffit d'utiliser la fonction `setInterval` de l'API Timers de Node.js: </br> ```setInterval(() => { console.log('Called every second') }, 1000)```
-  |
+| | Il suffit d'utiliser la fonction `setInterval` de l'API Timers de Node.js: </br> ```setInterval(() => { console.log('Called every second') }, 1000)``` |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | Il est possible d'utiliser les fonction de l'API node.js pour envoyer des datagrammes: voir exemple 1
-|
+| | Il est possible d'utiliser les fonction de l'API node.js pour envoyer des datagrammes: voir exemple 1 |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | Les arguments de commande peut être accédée depuis l'instance de `process` grâce au tableau `process.argv`
-|
+| | Les arguments de commande peut être accédée depuis l'instance de `process` grâce au tableau `process.argv`|
 
 *Exemple 1 - UDP datagrams*
 ```

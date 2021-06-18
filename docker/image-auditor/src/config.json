@@ -1,0 +1,4 @@
+{
+   "tcp_interface_port": 2205,
+   "udp_listen_port": 2222
+}

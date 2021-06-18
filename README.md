@@ -108,11 +108,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | Ce sont les musiciens qui vont envoyer des datagrammes UDP chaque seconde lorsqu'ils jouent |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-<<<<<<< HEAD
-| | Le chef d'orchestre (Auditor) est chargé d'écouter le traffic UDP pour recevoir des datagrammes ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
-=======
 | | Le chef d'orchestre (Auditor) est chargé d'écouter le trafic UDP pour recevoir des datagrammes ainsi il peut mettre à jour sa liste de musiciens actifs et mettre à disposition les données. |
->>>>>>> a2feaf18958d8d91837867f6463fb4b1caa03aef
 |Question | What **payload** should we put in the UDP datagrams? |
 | |  Un musicien envoie son uuid et le son qu'il joue, par exemple: `{"uuid":"1d175725-f7da-4ceb-993b-944c30dc608a","sound":"boum-boum"}`|
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |

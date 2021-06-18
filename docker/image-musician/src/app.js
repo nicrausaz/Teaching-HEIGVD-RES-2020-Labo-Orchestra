@@ -40,9 +40,9 @@ function play (musician_uuid, sound) {
       uuid: musician_uuid,
       sound: sound
    }
-   const message = JSON.stringify(data)
 
-   client.send(message, 0, message.length, PROTOCOL.PORT, PROTOCOL.MULTICAST_ADDRESS, (err, bytes) => {
+   const message = JSON.stringify(data)
+   client.send(message, 0, message.length, PROTOCOL.PORT, PROTOCOL.MULTICAST_ADDRESS, err => {
       err ? console.error(err) : console.log("Sending payload: " + message)
    })
 }

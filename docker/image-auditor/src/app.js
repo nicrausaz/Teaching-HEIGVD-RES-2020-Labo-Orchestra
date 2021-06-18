@@ -35,24 +35,23 @@ client.on('listening', () => {
 client.bind(PROTOCOL.PORT, () => client.addMembership(PROTOCOL.MULTICAST_ADDRESS))
 
 // Check if musicians are still active
-setInterval(() => {
+setInterval(clearInactivePlayers, 1000)
+
+function clearInactivePlayers () {
   for (let [key, values] of musicians.entries()) {
     const diff = (new Date().getTime() - new Date(values.activeSince).getTime()) / 1000
 
     if (diff > 5)
       musicians.delete(key)
   }
-}, 1000)
+}
 
 // TCP server
 // Construct buffered data to send to TCP client
 const server = net.createServer(socket => {
   const data = []
   musicians.forEach((value, key) => data.push({ uuid: key, instrument: value.instrument, activeSince: value.activeSince }))
-
   socket.write(Buffer.from(JSON.stringify(data)))
-  console.log(`sending: ${data}`)
-
   socket.destroy()
 })
 

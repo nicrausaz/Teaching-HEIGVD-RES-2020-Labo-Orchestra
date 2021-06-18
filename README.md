@@ -104,7 +104,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | *Insert your diagram here...* |
+| | ![](./images/diagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | Ce sont les musiciens qui vont envoyer des datagrammes UDP chaque seconde lorsqu'ils jouent |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
@@ -151,7 +151,7 @@ client.send(message, 0, message.length, PORT, BROADCAST_ADDR, callback())
 |Question | How do we **define and build our own Docker image**?|
 | | Nous nous basons sur une image node (v.14.16), dans laquelle nous copions notre application node.js, installons les dépendances et définissions un ENTRYPOINT (voir point suivant).|
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | La clause `ENTRYPOINT` permet de spécifier que TODO  |
+| | La clause `ENTRYPOINT` permet de spécifier un exécutable par défault pour notre container. A la différence de CMD, ces paramètres ne peuvent pas être redéfini au travers du docker-cli.  |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
 | | Il suffit de démarrer un container basé sur notre image (ici res/musician) avec la commande: <br> `docker run -d res/musician drum`  |
 |Question | How do we get the list of all **running containers**?  |

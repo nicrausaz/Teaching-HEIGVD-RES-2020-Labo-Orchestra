@@ -6,4 +6,4 @@ WORKDIR /opt/app/
 
 RUN npm install
 
-CMD ["node", "/opt/app/app.js"]
+ENTRYPOINT ["node", "/opt/app/app.js"]
